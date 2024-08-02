@@ -21,13 +21,21 @@ public class Philosopher extends BaseThread
 	 * - yield
 	 * - The print that they are done eating.
 	 */
+	//yield method is called randomYield() in BaseThread
 	public void eat()
 	{
 		try
 		{
 			// ...
+			//print phil TID
+			System.out.println("This philosopher has started eating: " + getTID());
+
+			//yield
+			randomYield();
 			sleep((long)(Math.random() * TIME_TO_WASTE));
 			// ...
+			randomYield();
+			System.out.println("The philosopher " + getTID() + " is done eating.");
 		}
 		catch(InterruptedException e)
 		{
@@ -48,6 +56,27 @@ public class Philosopher extends BaseThread
 	public void think()
 	{
 		// ...
+		try
+		{
+			// ...
+			//print phil TID
+			System.out.println("This philosopher has started thinking: " + getTID());
+
+			//yield
+			randomYield();
+			sleep((long)(Math.random() * TIME_TO_WASTE));
+			// ...
+			randomYield();
+			System.out.println("The philosopher " + getTID() + " is done thinking.");
+		}
+		catch(InterruptedException e)
+		{
+			System.err.println("Philosopher.think():");
+			DiningPhilosophers.reportException(e);
+			System.exit(1);
+		}
+
+
 	}
 
 	/**
@@ -62,9 +91,20 @@ public class Philosopher extends BaseThread
 	{
 		// ...
 
-		saySomething();
+//		saySomething();
 
-		// ...
+
+			// ...
+			//print phil TID
+			System.out.println("This philosopher has started talking: " + getTID());
+
+			//yield
+			randomYield();
+			saySomething();//sleep((long)(Math.random() * TIME_TO_WASTE));
+			// ...
+			randomYield();
+			System.out.println("The philosopher " + getTID() + " is done talking.");
+
 	}
 
 	/**
@@ -87,14 +127,18 @@ public class Philosopher extends BaseThread
 			 * A decision is made at random whether this particular
 			 * philosopher is about to say something terribly useful.
 			 */
-			if(true == false)
+			if(Math.random() % 2 == 0)
 			{
 				// Some monitor ops down here...
+				DiningPhilosophers.soMonitor.requestTalk();
+
 				talk();
 				// ...
+
+				DiningPhilosophers.soMonitor.endTalk();
 			}
 
-			yield(); //I guess you gotta edit it to Thread.yield();
+			randomYield(); //yield(); //I guess you gotta edit it to Thread.yield(); no!!!!! randomYield();
 		}
 	} // run()
 
