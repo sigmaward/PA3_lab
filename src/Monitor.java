@@ -12,6 +12,8 @@ public class Monitor
 	 * ------------
 	 */
 
+	//adding variable if philosopher is talking
+	private static boolean isTalking = false;
 
 	/**
 	 * Constructor
@@ -51,7 +53,15 @@ public class Monitor
 	 */
 	public synchronized void requestTalk()
 	{
-		// ...
+		if (!isTalking) {
+			isTalking = true;
+			Philosopher.talk();
+			notifyAll();
+
+		} else {
+			System.out.println("A philosopher is already talking.");
+		}
+
 	}
 
 	/**
@@ -61,6 +71,8 @@ public class Monitor
 	public synchronized void endTalk()
 	{
 		// ...
+		isTalking = false;
+		wait(); //in try catch
 	}
 }
 

@@ -8,6 +8,8 @@ import common.BaseThread;
  */
 public class Philosopher extends BaseThread
 {
+
+
 	/**
 	 * Max time an action can take (in milliseconds)
 	 */
@@ -94,16 +96,16 @@ public class Philosopher extends BaseThread
 //		saySomething();
 
 
-			// ...
-			//print phil TID
-			System.out.println("This philosopher has started talking: " + getTID());
+		// ...
+		//print phil TID
+		System.out.println("This philosopher has started talking: " + getTID());
 
-			//yield
-			randomYield();
-			saySomething();//sleep((long)(Math.random() * TIME_TO_WASTE));
-			// ...
-			randomYield();
-			System.out.println("The philosopher " + getTID() + " is done talking.");
+		//yield
+		randomYield();
+		saySomething();//sleep((long)(Math.random() * TIME_TO_WASTE));
+		// ...
+		randomYield();
+		System.out.println("The philosopher " + getTID() + " is done talking.");
 
 	}
 
@@ -137,6 +139,8 @@ public class Philosopher extends BaseThread
 
 				DiningPhilosophers.soMonitor.endTalk();
 			}
+
+
 
 			randomYield(); //yield(); //I guess you gotta edit it to Thread.yield(); no!!!!! randomYield();
 		}
