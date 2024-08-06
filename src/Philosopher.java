@@ -95,7 +95,6 @@ public class Philosopher extends BaseThread
 
 //		saySomething();
 
-
 		// ...
 		//print phil TID
 		System.out.println("This philosopher has started talking: " + getTID());
@@ -129,7 +128,7 @@ public class Philosopher extends BaseThread
 			 * A decision is made at random whether this particular
 			 * philosopher is about to say something terribly useful.
 			 */
-			if(Math.random() % 2 == 0)
+			if(Math.random() > 0.5)
 			{
 				// Some monitor ops down here...
 				DiningPhilosophers.soMonitor.requestTalk();
