@@ -14,6 +14,7 @@ public class Monitor
 
 	//adding variable if philosopher is talking
 	private static boolean isTalking = false;
+	public  static int[] chopsticks;
 
 
 	/**
@@ -22,8 +23,13 @@ public class Monitor
 	public Monitor(int piNumberOfPhilosophers)
 	{
 		// TODO: set appropriate number of chopsticks based on the # of philosophers
+		chopsticks = new int[piNumberOfPhilosophers];
 
-		int chopsticks = DiningPhilosophers.DEFAULT_NUMBER_OF_PHILOSOPHERS;
+		for (int i = 0; i < chopsticks.length; i++) {
+			chopsticks[i] = 1;
+//			System.out.println(chopsticks[i]);
+		}
+
 	}
 
 	/*
@@ -39,7 +45,32 @@ public class Monitor
 	public synchronized void pickUp(final int piTID)
 	{
 
+		//check if chopsticks are both available (hint: use modulo)
+		//if available turn the element of the array 0
+		//else wait();
+
+		int leftChopstick = piTID-1;
+		int rightChopstick = (piTID) % chopsticks.length;
+
+		//Attempt to pick up both chopsticks
+		while (true) {
+			//check if both chopsticks are available
+			if (chopsticks[leftChopstick] == 1 && chopsticks[rightChopstick] == 1) {
+				//pick up chopsticks
+				chopsticks[leftChopstick] = 0;
+				chopsticks[rightChopstick] = 0;
+				break; //Exit the loop once chopsticks are picked up
+			} else {
+				try {
+					wait(); //if chopsticks are not available
+				} catch (InterruptedException e) {
+					Thread.currentThread().interrupt();
+					System.out.println("Philosopher " + piTID + " was interrupted.");
+				}
+			}
+		}
 	}
+
 
 	/**
 	 * When a given philosopher's done eating, they put the chopstiks/forks down
@@ -47,6 +78,13 @@ public class Monitor
 	 */
 	public synchronized void putDown(final int piTID)
 	{
+		//put down the chopsticks by turning the 0 back to 1
+
+		int leftChopstick = piTID-1;
+		int rightChopstick = (piTID) % chopsticks.length;
+		chopsticks[leftChopstick] = 1;
+		chopsticks[rightChopstick] = 1;
+		notifyAll();
 
 	}
 

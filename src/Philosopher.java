@@ -121,23 +121,23 @@ public class Philosopher extends BaseThread
 
 			DiningPhilosophers.soMonitor.putDown(getTID());
 
-			think();
+//			think();
 
 			/*
 			 * TODO:
 			 * A decision is made at random whether this particular
 			 * philosopher is about to say something terribly useful.
 			 */
-			if(Math.random() > 0.5)
-			{
-				// Some monitor ops down here...
-				DiningPhilosophers.soMonitor.requestTalk();
-
-				talk();
-				// ...
-
-				DiningPhilosophers.soMonitor.endTalk();
-			}
+//			if(Math.random() > 0.5)
+//			{
+//				// Some monitor ops down here...
+//				DiningPhilosophers.soMonitor.requestTalk();
+//
+//				talk();
+//				// ...
+//
+//				DiningPhilosophers.soMonitor.endTalk();
+//			}
 
 
 
