@@ -14,7 +14,7 @@ public class Monitor
 
 	//adding variable if philosopher is talking
 	private static boolean isTalking = false;
-	private static boolean isEating = false;
+
 
 	/**
 	 * Constructor
@@ -38,19 +38,7 @@ public class Monitor
 	 */
 	public synchronized void pickUp(final int piTID)
 	{
-		if (!isEating) {
-			isEating = true;
-//			Philosopher.talk();
-//			notifyAll();
 
-		} else {
-			System.out.println("A philosopher is already eating.");
-			try {
-				wait();
-			} catch (InterruptedException e) {
-				throw new RuntimeException(e);
-			}
-		}
 	}
 
 	/**
@@ -59,9 +47,7 @@ public class Monitor
 	 */
 	public synchronized void putDown(final int piTID)
 	{
-		// ...
-		isEating = false;
-		notifyAll();
+
 	}
 
 	/**
@@ -70,21 +56,16 @@ public class Monitor
 	 */
 	public synchronized void requestTalk()
 	{
-		if (!isTalking) {
-			isTalking = true;
-//			Philosopher.talk();
-//			notifyAll();
-
-		} else {
-			System.out.println("A philosopher is already talking.");
+		while (isTalking) {
 			try {
 				wait();
 			} catch (InterruptedException e) {
 				throw new RuntimeException(e);
 			}
+
 		}
 
-//		isTalking = true;
+		isTalking = true;
 
 	}
 
@@ -96,11 +77,7 @@ public class Monitor
 	{
 		// ...
 		isTalking = false;
-//		try {
-//			wait(); //in try catch
-//		} catch (InterruptedException e) {
-//			throw new RuntimeException(e);
-//		}
+
 		notifyAll();
 
 	}
