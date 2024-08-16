@@ -46,7 +46,10 @@ public class DiningPhilosophers
 			 * Should be settable from the command line
 			 * or the default if no arguments supplied.
 			 */
-			int iPhilosophers = DEFAULT_NUMBER_OF_PHILOSOPHERS;
+
+			int iPhilosophers = parseCommandLineArguments(argv);
+
+//			int iPhilosophers = DEFAULT_NUMBER_OF_PHILOSOPHERS;
 
 			// Make the monitor aware of how many philosophers there are
 			soMonitor = new Monitor(iPhilosophers);
@@ -81,6 +84,25 @@ public class DiningPhilosophers
 			System.exit(1);
 		}
 	} // main()
+
+	private static int parseCommandLineArguments(String[] argv) {
+		if (argv.length > 0) {
+			try {
+				int userInput = Integer.parseInt(argv[0]);
+				if (userInput <= 0) {
+					System.err.println("Error: Number of philosophers must be a positive integer.");
+					System.exit(1);
+				}
+				return userInput;
+			} catch (NumberFormatException e) {
+				System.err.println("Error: Invalid argument. Please enter a positive integer.");
+				System.exit(1);
+			}
+		}
+		return DEFAULT_NUMBER_OF_PHILOSOPHERS; // No arguments provided, use default
+	}
+
+
 
 	/**
 	 * Outputs exception information to STDERR

@@ -52,14 +52,14 @@ public class Monitor
 		int leftChopstick = piTID-1;
 		int rightChopstick = (piTID) % chopsticks.length;
 
-		//Attempt to pick up both chopsticks
+		//try pick up both chopsticks
 		while (true) {
 			//check if both chopsticks are available
 			if (chopsticks[leftChopstick] == 1 && chopsticks[rightChopstick] == 1) {
-				//pick up chopsticks
+				//pick up chopsticks (turning 1 into 0)
 				chopsticks[leftChopstick] = 0;
 				chopsticks[rightChopstick] = 0;
-				break; //Exit the loop once chopsticks are picked up
+				break; //exit the loop once chopsticks are picked up
 			} else {
 				try {
 					wait(); //if chopsticks are not available
